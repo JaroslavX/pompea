@@ -1,26 +1,38 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-primary: #0a4f3d;
+  --color-primary-light: #12755c;
+  --color-accent: #ffd700;
+  --color-bg-card: #ffffff;
+  --color-bg-main: #f8f9fa;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg-main);
+  color: #333333;
+}
+
+/* Base styles for standard content pages migrated from EJS */
+.textPublication {
+  @apply text-lg text-gray-700 leading-relaxed mb-6 text-justify;
+}
+
+.article-title {
+  @apply text-center text-4xl font-bold text-primary pb-4 mb-6 relative;
+  font-family: var(--font-playfair);
+}
+
+.article-title::after {
+  content: '';
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-accent;
+}
+
+.testimonial-card {
+  @apply bg-white border-l-4 border-primary p-6 mb-6 rounded-r-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+.svid h2 {
+  @apply text-4xl font-bold text-primary mb-8 text-center;
+  font-family: var(--font-playfair);
 }
