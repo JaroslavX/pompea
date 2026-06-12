@@ -10,7 +10,7 @@ export default async function Home(props: {
   const searchParams = await props.searchParams;
   const pageStr = searchParams?.page || '1';
   let page = parseInt(pageStr as string, 10);
-  
+
   if (isNaN(page) || page < 1) page = 1;
 
   try {
@@ -25,12 +25,11 @@ export default async function Home(props: {
 
     const offset = (page - 1) * itemsPerPage;
     const rawRows = await collection.find({})
-      .sort({ _id: -1 }) // Sort newest first automatically by Mongo's Timestamped ID
+      .sort({ _id: -1 })
       .skip(offset)
       .limit(itemsPerPage)
       .toArray();
 
-    // Map Mongo Document _id to a simple string to pass cleanly to Client Components
     const rows = rawRows.map(doc => ({
       _id: doc._id.toString(),
       title: doc.title,
@@ -41,18 +40,16 @@ export default async function Home(props: {
 
     return (
       <div className="flex flex-col gap-6">
-        <div className="svid">
-          <h2>Свідчення</h2>
-        </div>
 
         {rows.length > 0 ? (
           rows.map((t: any) => (
             <div key={t._id} className="testimonial-card">
-              <h3 className="article-title">{t.title}</h3>
-              <p className="textPublication whitespace-pre-wrap">{t.text}</p>
-              
-              <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 text-sm font-semibold text-[#12755c]">
-                <span>{t.author}</span>
+              <div className="testimonial-card-body">
+                <h3 className="article-title">{t.title}</h3>
+                <p className="textPublication whitespace-pre-wrap">{t.text}</p>
+              </div>
+              <div className="testimonial-card-footer">
+                <span className="font-semibold">{t.author}</span>
                 <span>{t.date}</span>
               </div>
             </div>
@@ -62,25 +59,26 @@ export default async function Home(props: {
         )}
 
         {totalPages > 1 && (
-          <div className="flex justify-center flex-wrap gap-2 mt-8">
+          <div className="flex justify-center flex-wrap gap-1.5 mt-6 pt-6 border-t border-[#d1e8da]">
             {page > 1 && (
               <>
-                <Link href="/?page=1" className="px-4 py-2 bg-white border border-gray-200 rounded-md hover:bg-[#12755c] hover:text-white transition-colors">Перша</Link>
-                <Link href={`/?page=${page - 1}`} className="px-4 py-2 bg-white border border-gray-200 rounded-md hover:bg-[#12755c] hover:text-white transition-colors">Попередня</Link>
+                <Link href="/?page=1" className="px-3 py-1.5 text-sm border border-[#d1e8da] rounded-md hover:bg-[#12755c] hover:text-white hover:border-[#12755c] transition-colors" style={{ background: '#fffffe' }}>Перша</Link>
+                <Link href={`/?page=${page - 1}`} className="px-3 py-1.5 text-sm border border-[#d1e8da] rounded-md hover:bg-[#12755c] hover:text-white hover:border-[#12755c] transition-colors" style={{ background: '#fffffe' }}>Попередня</Link>
               </>
             )}
 
             {Array.from({ length: 5 }, (_, i) => page - 2 + i)
               .filter(i => i > 0 && i <= totalPages)
               .map(i => (
-                <Link 
-                  key={i} 
+                <Link
+                  key={i}
                   href={`/?page=${i}`}
-                  className={`px-4 py-2 border rounded-md transition-colors ${
-                    i === page 
-                      ? 'bg-[#0a4f3d] text-white border-[#0a4f3d]' 
-                      : 'bg-white border-gray-200 text-gray-700 hover:bg-[#12755c] hover:text-white hover:border-[#12755c]'
+                  className={`px-3 py-1.5 text-sm border rounded-md transition-colors ${
+                    i === page
+                      ? 'bg-[#0a4f3d] text-white border-[#0a4f3d] font-bold'
+                      : 'border-[#d1e8da] text-[#2d4a3e] hover:bg-[#12755c] hover:text-white hover:border-[#12755c]'
                   }`}
+                  style={i !== page ? { background: '#fffffe' } : {}}
                 >
                   {i}
                 </Link>
@@ -89,8 +87,8 @@ export default async function Home(props: {
 
             {page < totalPages && (
               <>
-                <Link href={`/?page=${page + 1}`} className="px-4 py-2 bg-white border border-gray-200 rounded-md hover:bg-[#12755c] hover:text-white transition-colors">Наступна</Link>
-                <Link href={`/?page=${totalPages}`} className="px-4 py-2 bg-white border border-gray-200 rounded-md hover:bg-[#12755c] hover:text-white transition-colors">Остання</Link>
+                <Link href={`/?page=${page + 1}`} className="px-3 py-1.5 text-sm border border-[#d1e8da] rounded-md hover:bg-[#12755c] hover:text-white hover:border-[#12755c] transition-colors" style={{ background: '#fffffe' }}>Наступна</Link>
+                <Link href={`/?page=${totalPages}`} className="px-3 py-1.5 text-sm border border-[#d1e8da] rounded-md hover:bg-[#12755c] hover:text-white hover:border-[#12755c] transition-colors" style={{ background: '#fffffe' }}>Остання</Link>
               </>
             )}
           </div>
@@ -99,6 +97,6 @@ export default async function Home(props: {
     );
   } catch (error) {
     console.error("DB Error: ", error);
-    return <div className="text-red-500 p-8 text-center bg-red-50 rounded-lg">Помилка завантаження бази даних. Перевірте з'єднання у cPanel.</div>;
+    return <div className="text-red-500 p-8 text-center bg-red-50 rounded-lg">Помилка завантаження бази даних. Перевірте з&apos;єднання у cPanel.</div>;
   }
 }

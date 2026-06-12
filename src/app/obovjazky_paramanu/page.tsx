@@ -5,9 +5,9 @@ export default function Page() {
     <div className="content-page legacy-content" dangerouslySetInnerHTML={{ __html: `<!--  Article   -->
         <div class="svid"><h2>Кармелітанський Параман</h2></div>
                 <a class="ancor" name="Наверх"></a>
-                <h2><center>
+                <h2 style="text-align:center">
                 Привілеї та обов’язки св. Параману
-                </center></h2>
+                </h2>
 
 <h4>
 ВСТУПНЕ СЛОВО
@@ -26,7 +26,7 @@ export default function Page() {
 о. Андрій Коваль, СБССЙ
 </b></p>
 
-<h3><center>                Привілеї                </center></h3>
+<h3 style="text-align:center">                Привілеї                </h3>
     <h4>
     Привілеї за життя
     </h4>
@@ -38,11 +38,11 @@ export default function Page() {
 3. Параман забезпечує нам участь у молитвах, покутах і заслугах усього Кармелітанського Чину як за життя, так і після смерті.
 </p><p class="textPublication">
 4. Параман запевняє нам особливу опіку Найсвятішої Діви Марії.
-</p><p class="textPublication">
+</p><div class="textPublication">
     <h4>
     Привілеї після смерті
     </h4>
-</p><p class="textPublication">
+</div><p class="textPublication">
 1. Той, хто побожно за життя  носить Параман і в ньому вмирає, буде захоронений від пекельного вогню.
 </p><p class="textPublication">
 2. Завдяки суботньому привілею, в першу суботу після нашої смерті Пречиста Діва Марія визволить нас із чистилища і запровадить до неба.
@@ -115,7 +115,7 @@ export default function Page() {
 
 
                                 
-               <a class="ancor" href="#Наверх"><h4>Наверх</h4></a>                 
-        </div>` }} />
+               <a class="ancor" href="#Наверх">Наверх</a>                 
+        ` }} />
   );
 }

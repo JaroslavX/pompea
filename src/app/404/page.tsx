@@ -6,11 +6,9 @@ export default function Page() {
             <div class="svid">
                 <h2>Помилка</h2>
             </div>
-            <h2>
-                <center>
+            <h2 style="text-align:center">
                     Щось пішло не так…
-                </center>
-            </h2>
-        </div>` }} />
+                </h2>
+        ` }} />
   );
 }

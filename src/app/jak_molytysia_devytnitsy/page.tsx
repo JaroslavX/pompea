@@ -4,18 +4,16 @@ export default function Page() {
   return (
     <div className="content-page legacy-content" dangerouslySetInnerHTML={{ __html: `<!--  Article   -->
 
-            <h2 id="title">
-                <center>
+            <h2 id="title" style="text-align:center">
                     ЯК МОЛИТИСЯ ПОМПЕЙСЬКУ ДЕВ’ЯТНИЦЮ
-                </center>
-            </h2>
+                </h2>
 
-            <center class="zmist">
+            <div class="zmist" style="text-align:center">
                 <h3><a class="zmist" name="Зміст">Зміст</a></h3>
                 <h4><a class="zmist" href="#ЯК МОЛИТИСЯ ПОМПЕЙСЬКУ ДЕВ’ЯТНИЦЮ">Як Молитися Помпейську Дев’ятницю</a></h4>
                 <h4><a class="zmist" href="#МОЛИТВА В ПРОХАЛЬНІЙ ЧАСТИНІ ВЕРВИЦІ">Молитва В Прохальній Частині Вервиці</a></h4>
                 <h4><a class="zmist" href="#МОЛИТВА В ПОДЯЧНІЙ ЧАСТИНІ ВЕРВИЦІ">Молитва В Подячній Частині Вервиці</a></h4>
-            </center>
+            </div>
 
 
             <p class="textPublication">
@@ -26,9 +24,7 @@ export default function Page() {
                     <h2 id="МОЛИТВА В ПРОХАЛЬНІЙ ЧАСТИНІ ВЕРВИЦІ">МОЛИТВА В ПРОХАЛЬНІЙ ЧАСТИНІ ВЕРВИЦІ</h2>
                 </div>
                 <div class="col-md-4">
-                    <a class="ancor" href="#Зміст">
-                        <h4>[ Зміст ]</h4>
-                    </a>
+                    <a class="ancor" href="#Зміст">>[ Зміст ]</a>
                 </div>
             </div>
             <p class="textPublication">
@@ -42,9 +38,7 @@ export default function Page() {
                     <h2 id="МОЛИТВА В ПОДЯЧНІЙ ЧАСТИНІ ВЕРВИЦІ">МОЛИТВА В ПОДЯЧНІЙ ЧАСТИНІ ВЕРВИЦІ</h2>
                 </div>
                 <div class="col-md-4">
-                    <a class="ancor" href="#Зміст">
-                        <h4>[ Зміст ]</h4>
-                    </a>
+                    <a class="ancor" href="#Зміст">>[ Зміст ]</a>
                 </div>
             </div>
             <p class="textPublication">
@@ -54,7 +48,7 @@ export default function Page() {
                 <i> Царице Святої Вервиці, молися за нас!</i>
             </p>
 
-            <div class="table" style="overflow-x:auto;>
+            <div class="table" style="overflow-x:auto;">
                         <p style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:115%;font-size:15px;font-family:" Calibri",sans-serif;text-align:justify;text-indent:35.45pt;'><em><span style='font-size:19px;line-height:115%;font-family:"Times New Roman",serif;'>ПОЧАТОК ДЕВ&rsquo;ЯТНИЦІ (дата) &nbsp;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;</span></em></p>
                 <table style="border-collapse:collapse;border:none;">
                     <tbody>
@@ -712,13 +706,9 @@ export default function Page() {
                 <i>Слова Пречистої Діви Марії до дівчини Фортунатіни</i>
             </p>
 
-            <a class="ancor" href="#title">
-                <h4>[ Наверх ]</h4>
-            </a>
+            <a class="ancor" href="#title">>[ Наверх ]</a>
 
-            <a class="ancor" href="ymovy_perestorogy.php">
-                <h3>[ Перейти до Зауваги та умови ]</h3>
-            </a>
-        </div>` }} />
+            <a class="ancor" href="ymovy_perestorogy.php">>[ Перейти до Зауваги та умови ]</a>
+        ` }} />
   );
 }

@@ -4,10 +4,10 @@ export default function Page() {
   return (
     <div className="content-page legacy-content" dangerouslySetInnerHTML={{ __html: `<!--  Article   -->
         <div class="svid"><h2>Вервиця</h2></div>
-                <h2><center>
+                <h2 style="text-align:center">
                 Обітниці св. Вервиці
-                </center></h2>
-    <h3><center>П’ятнадцять обітниць, даних Пречистою Дівою Марією тим, хто відмовлятиме Св. Вервицю, об’явлені бл. Аланові де Рупе.</center></h3>
+                </h2>
+    <h3 style="text-align:center">П’ятнадцять обітниць, даних Пречистою Дівою Марією тим, хто відмовлятиме Св. Вервицю, об’явлені бл. Аланові де Рупе.</h3>
 <p class="textPublication">
 1. Хто буде мені служити, відмовляючи Вервицю, отримає виняткові ласки.
 </p><p class="textPublication">
@@ -41,6 +41,6 @@ export default function Page() {
 </p>
                                 
                                 
-        </div>` }} />
+        ` }} />
   );
 }

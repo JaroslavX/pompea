@@ -5,9 +5,9 @@ export default function Page() {
     <div className="content-page legacy-content" dangerouslySetInnerHTML={{ __html: `<!--  Article   -->
         <div class="svid"><h2>Помпейська дев’ятниця</h2></div>
                 <a class="ancor" name="Наверх"></a>
-                <h2><center>
+                <h2 style="text-align:center">
                 Історія Помпейської дев’ятниці
-                </center></h2>
+                </h2>
 
 <h3>
     Молитва, яка досягає своєї мети
@@ -74,7 +74,7 @@ export default function Page() {
      Відтоді й почала поширюватися Помпейська дев’ятниця, а з нею – випрошені чуда у Матері Божої. У світі її називають «молитва, яка досягає своєї мети» або «безвідмовна молитва», що означає: Марія не може відмовити тим, які моляться у такий спосіб.   
 </p>
                                 
-               <a class="ancor" href="#Наверх"><h4>Наверх</h4></a>                 
-        </div>` }} />
+               <a class="ancor" href="#Наверх">>Наверх</a>                 
+        ` }} />
   );
 }

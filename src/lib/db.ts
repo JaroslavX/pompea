@@ -18,7 +18,11 @@ if (process.env.NODE_ENV === 'development') {
   }
   if (!globalWithMongo._mongoClientPromise) {
     client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
+    globalWithMongo._mongoClientPromise = client.connect().catch((err) => {
+      // Avoid caching the failed promise so that subsequent requests/HMR reloads can try connecting again
+      delete globalWithMongo._mongoClientPromise;
+      throw err;
+    });
   }
   clientPromise = globalWithMongo._mongoClientPromise;
 } else {

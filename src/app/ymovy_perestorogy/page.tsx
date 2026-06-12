@@ -6,11 +6,9 @@ export default function Page() {
             <div class="svid">
                 <h2>Вервиця</h2>
             </div>
-            <h2>
-                <center>
+            <h2 style="text-align:center">
                     Зауваги та умови для доброго відмовляння Помпейської дев’ятниці
-                </center>
-            </h2>
+                </h2>
             <p class="textPublication">
                 Хочемо навести ще декілька порад для успішного відмовляння Помпейської дев’ятниці, бо часто від цього
                 залежить користь нашої молитви.
@@ -173,6 +171,6 @@ export default function Page() {
 
                 </b></p>
 
-        </div>` }} />
+        ` }} />
   );
 }

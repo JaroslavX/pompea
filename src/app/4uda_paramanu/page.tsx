@@ -5,9 +5,9 @@ export default function Page() {
     <div className="content-page legacy-content" dangerouslySetInnerHTML={{ __html: `<!--  Article   -->
         <div class="svid"><h2>Чуда св. Параману</h2></div>
                 <a class="ancor" name="Наверх"></a>
-                <h2><center>
+                <h2 style="text-align:center">
                 Чуда Кармелітанського Параману
-                </center></h2>
+                </h2>
 
 <h4>
 Перше чудо Св. Параману
@@ -53,7 +53,7 @@ export default function Page() {
 
 
                                 
-               <a class="ancor" href="#Наверх"><h4>Наверх</h4></a>                 
-        </div>` }} />
+               <a class="ancor" href="#Наверх">>Наверх</a>                 
+        ` }} />
   );
 }
