@@ -1,11 +1,4 @@
-# Pompeya (pompeya.org.ua)
-
-Next.js 16 (App Router) site for the Pompeian novena. Testimonies come from MongoDB Atlas, the feedback forms send mail through SMTP.
-It runs on a shared cPanel host (uahosting) behind nginx + Phusion Passenger, on the main domain `https://pompeya.org.ua/`.
-
-> `AGENTS.md`: this Next.js version has breaking changes. Read `node_modules/next/dist/docs/` before changing framework code.
-
-## TL;DR: ship a change
+# Pompeya 
 
 ```bash
 # 1. on your computer, in this folder
