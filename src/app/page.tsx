@@ -1,5 +1,6 @@
 import clientPromise from '../lib/db';
 import Link from 'next/link';
+import { dailyPage } from '../lib/dailyPage';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,8 +9,11 @@ export default async function Home(props: {
 }) {
   const itemsPerPage = 1;
   const searchParams = await props.searchParams;
-  const pageStr = searchParams?.page || '1';
-  let page = parseInt(pageStr as string, 10);
+  const pageParam = searchParams?.page;
+  // No ?page= means the plain home page: show the testimony of the day.
+  // An explicit ?page=N (pagination links) shows exactly that page.
+  const showDaily = pageParam === undefined;
+  let page = parseInt((pageParam as string) || '1', 10);
 
   if (isNaN(page) || page < 1) page = 1;
 
@@ -21,6 +25,7 @@ export default async function Home(props: {
     const totalItems = await collection.countDocuments();
     const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
 
+    if (showDaily) page = dailyPage(totalItems, itemsPerPage);
     if (page > totalPages) page = totalPages;
 
     const offset = (page - 1) * itemsPerPage;

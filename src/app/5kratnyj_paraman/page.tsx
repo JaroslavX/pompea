@@ -39,7 +39,7 @@ export default function Page() {
 5) Параман НМБ з гори Кармель (коричневий) Чину кармелітів.
 </b></p>
 <p class="textPublication"><i>
-Більше про Кармелітанський Параман див. за <a class="ancor" href="istorija_paramanu.php"><b>цим посиланням</b></a>.
+Більше про Кармелітанський Параман див. за <a class="ancor" href="/istorija_paramanu"><b>цим посиланням</b></a>.
 </i></p>
 <h3>
 Щоденні обов’язки П’ятикратного Параману

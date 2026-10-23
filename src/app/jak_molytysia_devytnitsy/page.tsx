@@ -708,7 +708,7 @@ export default function Page() {
 
             <a class="ancor" href="#title">>[ Наверх ]</a>
 
-            <a class="ancor" href="ymovy_perestorogy.php">>[ Перейти до Зауваги та умови ]</a>
+            <a class="ancor" href="/ymovy_perestorogy">>[ Перейти до Зауваги та умови ]</a>
         ` }} />
   );
 }
