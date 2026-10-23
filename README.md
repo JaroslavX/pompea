@@ -5,7 +5,7 @@
 npm run dev                       # edit and check locally (http://localhost:3000)
 scripts/build-release.sh          # builds and writes ~/Downloads/pompeya-release-<id>.zip
 
-# 2. upload that zip to /home/pompe120/pompeya-next/  (cPanel -> File Manager -> Upload)
+# 2. upload that zip to ~/pompeya-next/  (cPanel -> File Manager -> Upload)
 
 # 3. cPanel -> Terminal
 bash ~/pompeya-next/scripts/server-deploy.sh pompeya-release-<id>.zip
@@ -44,7 +44,7 @@ npm install
 npm run dev
 ```
 
-Local `.env` is git-ignored (never commit or paste it): `MONGODB_URI`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `NEXT_PUBLIC_GA_ID`.
+Copy `.env.example` to `.env` and fill it in (`.env` is git-ignored; never commit or paste it). Variables: `MONGODB_URI`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `NEXT_PUBLIC_GA_ID`.
 - `NEXT_PUBLIC_GA_ID` is read at **build** time, so it must be in `.env` when you build a release, or Analytics is missing from it.
 - `MONGODB_URI` must be the plain `mongodb://` string with the three shard hosts, not `mongodb+srv://` (see "Production quirks").
 
@@ -57,7 +57,7 @@ MongoDB Atlas, database `site`, collection `testimonials`, fields `title`, `text
 
 **1. Build** (`scripts/build-release.sh`): sets a new `deploymentId` in `next.config.mjs` (adds `?dpl=<id>` to every asset URL, bypassing stale caches), runs `npm run build`, and writes `~/Downloads/pompeya-release-<id>.zip` (`.next`, `public`, `server.js`, `next.config.mjs`, `package*.json`, `scripts/server-deploy.sh`; no `.env`, no `node_modules`). It prints the id and the deploy command.
 
-**2. Upload:** cPanel → File Manager → `/home/pompe120/pompeya-next` → Upload the zip. Check space first: `du -sh ~` should be well under 1000 MB (about 500 MB is normal); otherwise free some (see Debugging).
+**2. Upload:** cPanel → File Manager → `~/pompeya-next` → Upload the zip. Check space first: `du -sh ~` should be well under 1000 MB (about 500 MB is normal); otherwise free some (see Debugging).
 
 **3. Deploy:** `bash ~/pompeya-next/scripts/server-deploy.sh pompeya-release-<id>.zip`. It keeps the old build in `~/pompeya-prev`, replaces `.next`, `public`, `server.js` and the config (not `node_modules`), reinstalls `~/pompeya-modules` only if `package-lock.json` changed (about a minute, needs about 350 MB free), refreshes the static copies in `~/public_html`, deletes the zip and touches `tmp/restart.txt`.
 The very first time the script is not on the server yet:
@@ -91,7 +91,7 @@ If the bad release changed dependencies, reinstall the old ones too (`~/pompeya-
 
 ### Deploying over SSH (optional)
 
-SSH is enabled (`pompe120@141.95.64.76`, port 22) with a dedicated, passphrase-protected key at `~/.ssh/pompeya_deploy`, authorized in cPanel → SSH Access. With it, Claude can do steps 2-4: `scp` the zip, run `server-deploy.sh` over `ssh`, run the verify commands. Nothing secret is stored in the repo. Remove the key in cPanel when you no longer want that access.
+SSH is enabled (`<cpanel-user>@<server-ip>`, port 22) with a dedicated, passphrase-protected key, authorized in cPanel → SSH Access. Host, user and key path are kept outside the repo. With it, Claude can do steps 2-4: `scp` the zip, run `server-deploy.sh` over `ssh`, run the verify commands. Nothing secret is stored in the repo. Remove the key in cPanel when you no longer want that access.
 
 ## Production setup
 
@@ -105,12 +105,12 @@ SSH is enabled (`pompe120@141.95.64.76`, port 22) with a dedicated, passphrase-p
 | Env vars | In the Node.js app screen, not read from `.env`: `MONGODB_URI`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `NEXT_PUBLIC_GA_ID` |
 | Old PHP site | Backup in `~/old_site`. Old URLs `/files/<page>.php` and `/<page>.php` redirect to the new pages (`redirects()` in `next.config.mjs`) |
 | Database | MongoDB Atlas, cluster "Pompea" (Frankfurt). Network Access must contain the server's outbound IP (`curl -s https://api.ipify.org` on the server) |
-| Analytics | GA4 `G-CWG9JF9B37` via `@next/third-parties` in `layout.tsx`; check GA4 → Reports → Realtime |
+| Analytics | GA4 (Measurement ID in `NEXT_PUBLIC_GA_ID`) via `@next/third-parties` in `layout.tsx`; check GA4 → Reports → Realtime |
 | Disk quota | 1000 MB total |
 
 ### Production quirks (read before "fixing" things)
 
-- **`mongodb+srv://` does not work**: the SRV record for `pompea.j7bzloo.mongodb.net` does not exist. Use `mongodb://` with the shard hosts `ac-nesprsg-shard-00-0{0,1,2}.j7bzloo.mongodb.net:27017` and `ssl=true&authSource=admin` (error otherwise: `querySrv ENOTFOUND`).
+- **`mongodb+srv://` does not work**: the SRV record of the cluster host does not exist in DNS. Use `mongodb://` with the three shard hosts (`<shard-00-00>,<shard-00-01>,<shard-00-02>`, port 27017, from Atlas → Connect → Drivers → older connection string) and `ssl=true&authSource=admin` (error otherwise: `querySrv ENOTFOUND`).
 - **CloudLinux deletes `~/pompeya-next/node_modules`**, hence `~/pompeya-modules` and `NODE_PATH`. Never click "Run NPM Install".
 - **nginx serves static files itself** from `~/public_html/` and sends missing paths to the old PHP catch-all, not to the app. So `.next/static` and `public/` must be copied there on every deploy, and `/_next/image` is unreachable.
 - **nginx caches responses**, HTML included. `?dpl=<id>` refreshes JS/CSS/images on every release; stale HTML needs a cache purge.
@@ -129,7 +129,7 @@ du -sh ~                                         # disk quota
 | Passenger "could not be started" | Read the log. `Cannot find module 'next'`: `~/pompeya-modules/node_modules` is missing, so reinstall: `source ~/nodevenv/pompeya-next/24/bin/activate && cd ~/pompeya-modules && npm ci --omit=dev` |
 | Unstyled page, `Unexpected token '<'` in the console, broken images | Static copies missing or stale in `~/public_html` (`_next/static`, `images/`, ...): redo the copy from the Rollback block, or release again |
 | "Помилка завантаження бази даних" | Server IP not in Atlas Network Access, or wrong/rotated `MONGODB_URI` in the Node.js app screen. Real error: `DB Error:` in the log |
-| Old PHP site or old page in the browser | Cache. Compare `curl ...?x=$RANDOM` with the browser, use a private window, purge the cache. `dig +short pompeya.org.ua` should be `141.95.64.76` |
+| Old PHP site or old page in the browser | Cache. Compare `curl ...?x=$RANDOM` with the browser, use a private window, purge the cache. `dig +short pompeya.org.ua` should return the server IP |
 | Live `data-dpl-id` differs from the id the build printed | The old build is still running: Restart the app |
 | `-122` / "disk quota exceeded" | `rm -rf ~/.npm ~/.trash/*`; delete `~/pompeya-prev` / `~/old_site` if unneeded |
 | Feedback form ends on `/404` | `SMTP_*` missing or wrong (`Mail Error:` in the log), or the rate limit (5 per 10 minutes per IP; repeated testing hits it too) |
